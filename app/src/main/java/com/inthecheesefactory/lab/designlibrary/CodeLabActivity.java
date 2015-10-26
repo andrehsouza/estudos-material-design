@@ -1,5 +1,6 @@
 package com.inthecheesefactory.lab.designlibrary;
 
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,7 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class CodeLabActivity extends AppCompatActivity {
+public class CodeLabActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
@@ -50,22 +51,12 @@ public class CodeLabActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
         collapsingToolbarLayout.setTitle("Salt");
 
-        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (fabBtn.getTop() <= toolbar.getHeight()) {
-                    fabBtn.hide();
-                } else {
-                    fabBtn.show();
-                }
-            }
-        });
 
+        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        appBarLayout.addOnOffsetChangedListener(this);
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Filme"));
@@ -134,21 +125,29 @@ public class CodeLabActivity extends AppCompatActivity {
     }
 
     private void changePallet() {
+
         final Bitmap myBitmap = BitmapFactory.decodeResource(getResources(),
                 R.drawable.salt_movie);
 
         Palette.generateAsync(myBitmap, new Palette.PaletteAsyncListener() {
-            @Override
             public void onGenerated(Palette palette) {
+                int bgColor = palette.getMutedColor(getResources().getColor(R.color.datamovie_primary_color));
+                collapsingToolbarLayout.setContentScrimColor(bgColor);
+                findViewById(R.id.view_color).setBackgroundColor(bgColor);
+                appBarLayout.setBackgroundColor(bgColor);
 
-//                int vibrant = palette.getVibrantColor(0x000000);
-//                int muted = palette.getMutedColor(0x000000);
-//
-//                System.out.println("Vibrant: "+vibrant);
-//
-//                collapsingToolbarLayout.setContenScrimColor(muted);
-//                fabBtn.setBackgroundColor(vibrant);
+                int componnentsBg = palette.getLightMutedColor(getResources().getColor(R.color.datamovie_primary_color_acent));
+                fabBtn.setBackgroundTintList(ColorStateList.valueOf(componnentsBg));
             }
         });
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+        if (fabBtn.getTop() <= toolbar.getHeight()) {
+            fabBtn.hide();
+        } else {
+            fabBtn.show();
+        }
     }
 }
