@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_gravity="bottom"
-                    android:background="@color/datamovie_primary_color" />
+                    android:background="@color/primary" />
 
                 <LinearLayout
                     android:id="@+id/view_info_container"

@@ -1,9 +1,6 @@
 package com.inthecheesefactory.lab.designlibrary;
 
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -14,7 +11,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,7 +38,6 @@ public class CodeLabActivity extends AppCompatActivity implements AppBarLayout.O
     @Override
     protected void onResume() {
         super.onResume();
-        changePallet();
     }
 
     private void initInstances() {
@@ -124,23 +119,23 @@ public class CodeLabActivity extends AppCompatActivity implements AppBarLayout.O
         return super.onOptionsItemSelected(item);
     }
 
-    private void changePallet() {
-
-        final Bitmap myBitmap = BitmapFactory.decodeResource(getResources(),
-                R.drawable.salt_movie);
-
-        Palette.generateAsync(myBitmap, new Palette.PaletteAsyncListener() {
-            public void onGenerated(Palette palette) {
-                int bgColor = palette.getMutedColor(getResources().getColor(R.color.datamovie_primary_color));
-                collapsingToolbarLayout.setContentScrimColor(bgColor);
-                findViewById(R.id.view_color).setBackgroundColor(bgColor);
-                appBarLayout.setBackgroundColor(bgColor);
-
-                int componnentsBg = palette.getLightMutedColor(getResources().getColor(R.color.datamovie_primary_color_acent));
-                fabBtn.setBackgroundTintList(ColorStateList.valueOf(componnentsBg));
-            }
-        });
-    }
+//    private void changePallet() {
+//
+//        final Bitmap myBitmap = BitmapFactory.decodeResource(getResources(),
+//                R.drawable.salt_movie);
+//
+//        Palette.generateAsync(myBitmap, new Palette.PaletteAsyncListener() {
+//            public void onGenerated(Palette palette) {
+//                int bgColor = palette.getMutedColor(getResources().getColor(R.color.datamovie_primary_color));
+//                collapsingToolbarLayout.setContentScrimColor(bgColor);
+//                findViewById(R.id.view_color).setBackgroundColor(bgColor);
+//                appBarLayout.setBackgroundColor(bgColor);
+//
+//                int componnentsBg = palette.getLightMutedColor(getResources().getColor(R.color.datamovie_primary_color_acent));
+//                fabBtn.setBackgroundTintList(ColorStateList.valueOf(componnentsBg));
+//            }
+//        });
+//    }
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
