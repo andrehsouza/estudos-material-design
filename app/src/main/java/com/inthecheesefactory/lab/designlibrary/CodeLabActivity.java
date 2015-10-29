@@ -18,6 +18,8 @@ import android.view.View;
 
 public class CodeLabActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
+    private static final int ALPHA_ANIMATIONS_DURATION = 200;
+
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
     FloatingActionButton fabBtn;
@@ -30,7 +32,7 @@ public class CodeLabActivity extends AppCompatActivity implements AppBarLayout.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_code_lab);
+        setContentView(R.layout.main_1);
         
         initInstances();
     }
@@ -49,9 +51,9 @@ public class CodeLabActivity extends AppCompatActivity implements AppBarLayout.O
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
         collapsingToolbarLayout.setTitle("Salt");
 
-
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.addOnOffsetChangedListener(this);
+
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Filme"));
@@ -138,11 +140,18 @@ public class CodeLabActivity extends AppCompatActivity implements AppBarLayout.O
 //    }
 
     @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+    public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
         if (fabBtn.getTop() <= toolbar.getHeight()) {
             fabBtn.hide();
         } else {
             fabBtn.show();
         }
+
+//        int maxScroll = appBarLayout.getTotalScrollRange();
+//        float percentage = (float) Math.abs(offset) / (float) maxScroll;
+//
+//        handleAlphaOnTitle(percentage);
     }
+
+
 }
